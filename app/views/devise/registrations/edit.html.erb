@@ -1,0 +1,64 @@
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.text_field :phone %>
+    </div>
+  </div>
+
+  <div class="row">
+    <% if house_hunter_logged? %>
+      <div class="col-sm-6">
+        <%= f.select :preferred_method, %w(Email Text Phone) %>
+      </div>
+    <% end %>
+    <% if realtor_logged? %>
+        <div class="col-sm-6">
+          <%= f.select :real_estate_company_id, RealEstateCompany.all.collect { |r| [ r.name, r.id ] }, include_blank: true %>
+        </div>
+        <div class="col-sm-6" style="margin-top: 23px">
+          <%= link_to 'New Real Estate Company', new_real_estate_company_path, :class => 'btn btn-warning' %>
+          <% if @user.real_estate_company_id%>
+            <%= link_to 'Edit Real Estate Company', edit_real_estate_company_path(@user.real_estate_company_id), :class => 'btn btn-warning' %>
+          <% end %>
+        </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.check_box :house_hunter %>
+    </div>
+    <div class="col-md-3">
+      <%= f.check_box :realtor %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.password_field :password, autocomplete: "new-password" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.password_field :current_password, autocomplete: "current-password" %>
+    </div>
+  </div>
+  <%= f.primary 'Update Profile' %>
+<% end %>
+
+<p><%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, :class => 'btn btn-danger' %></p>

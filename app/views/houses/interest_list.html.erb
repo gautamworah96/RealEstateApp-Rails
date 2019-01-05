@@ -1,0 +1,38 @@
+<h1>Interest List</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Style</th>
+      <th>List Price</th>
+      <th>Location</th>
+      <th>Real Estate Company</th>
+      <th>Created</th>
+      <th>Image</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @houses.each do |house| %>
+      <tr>
+        <td><%= link_to house.style, house_path(house) %></td>
+        <td>$<%= house.list_price %></td>
+        <td><%= house.location %></td>
+        <td><%= house.real_estate_company.name %></td>
+        <td><%= time_ago_in_words house.created_at %></td>
+        <td>
+          <% if house.images && house.images[0] %>
+            <%= image_tag house.images[0], :class => 'img-responsive header-img' %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'New inquiry', new_message_path(:receiver_id => house.realtor_id), :class => 'btn btn-primary' %>
+          <%= link_to 'Remove from list', house_delete_potential_buyer_path(house), method: :post, :class => 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+

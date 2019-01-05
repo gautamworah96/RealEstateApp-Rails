@@ -1,0 +1,67 @@
+<h1><%= @house.style %></h1>
+
+<p>
+  <strong>Real estate company:</strong>
+  <%= @house.real_estate_company.name %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @house.location %>
+</p>
+
+<p>
+  <strong>Square footage:</strong>
+  <%= @house.square_footage %>
+</p>
+
+<p>
+  <strong>Year built:</strong>
+  <%= @house.year_built %>
+</p>
+
+<p>
+  <strong>List price:</strong>
+  <%= @house.list_price %>
+</p>
+
+<p>
+  <strong>Num floors:</strong>
+  <%= @house.num_floors %>
+</p>
+
+<p>
+  <strong>Has basement:</strong>
+  <%= @house.has_basement %>
+</p>
+
+<p>
+  <strong>Current house owner:</strong>
+  <%= @house.current_house_owner %>
+</p>
+
+<p>
+  <strong>Realtor:</strong>
+  <%= @house.realtor.name %>
+</p>
+
+<p>
+  <% @house.images.each do |image| %>
+    <p><%= image_tag image %></p>
+  <% end %>
+</p>
+
+<% if potential_buyers_visible? @house %>
+  <div>
+    <h3>Potential Buyers</h3>
+    <% @house.potential_buyers.each do |potential_buyer| %>
+      <p>Name: <%= potential_buyer.name %> | Email: <%= potential_buyer.email %> | Phone: <%= potential_buyer.phone %> | Preferred method: <%= potential_buyer.preferred_method %></p>
+    <% end %>
+  </div>
+<% end %>
+
+<% if edit_visible? @house %>
+  <%= link_to 'Edit', edit_house_path(@house), :class => 'btn btn-warning' %>
+<% end %>
+
+<%= link_to 'Back', houses_path, :class => 'btn btn-primary' %>

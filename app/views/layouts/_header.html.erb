@@ -1,0 +1,29 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "CSC517-P2", "#", id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <% if admin_logged? %>
+          <li><%= link_to "Admin", rails_admin_path, :class => 'btn btn-danger' %></li>
+        <% end %>
+        <li><%= link_to "Inquiries",   static_pages_home_path %></li>
+        <li><%= link_to "Real Estate Companies", real_estate_companies_path %></li>
+        <li><%= link_to "Houses", houses_path %></li>
+        <% if user_signed_in? %>
+          <% if house_hunter_logged? %>
+            <li><%= link_to "Interest List", houses_interest_list_path %></li>
+          <% end %>
+          <% if can_add_new_house? %>
+            <li><%= link_to "Add House", new_house_path %></li>
+          <% end %>
+          <li><%= link_to "Profile (#{current_user.name})", edit_user_registration_path, :class => 'navbar-link' %> </li>
+          <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
+        <% else %>
+          <li><%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link' %></li>
+          <li><%= link_to "Login", new_user_session_path, :class => 'navbar-link' %></li>
+        <% end %>
+        </p>
+      </ul>
+    </nav>
+  </div>
+</header>

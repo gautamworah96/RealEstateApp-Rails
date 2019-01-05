@@ -1,0 +1,43 @@
+<h2>Sign up</h2>
+
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+    <%= bootstrap_form_for(resource,
+      as: resource_name,
+      url: registration_path(resource_name),
+      layout: :horizontal) do |f| %>
+
+      <%= devise_error_messages! %>
+
+      <%= f.text_field :name %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <%= f.password_field :password, autocomplete: "new-password" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+
+      <div class="text-center">
+        <%= f.primary "Sign up as House Hunter", :id => "house_hunter_submit" %>
+        <%= f.primary "Sign up as Realtor", :id => "realtor_submit" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  let $form = document.getElementsByTagName('form')[0];
+
+  document.getElementById('house_hunter_submit').addEventListener('click', () => {
+    let input = document.createElement("input");
+    input.type = 'hidden';
+    input.name = 'user[house_hunter]';
+    input.value = true;
+    $form.appendChild(input);
+  });
+  document.getElementById('realtor_submit').addEventListener('click', () => {
+    let input = document.createElement("input");
+    input.type = 'hidden';
+    input.name = 'user[realtor]';
+    input.value = true;
+    $form.appendChild(input);
+  });
+</script>

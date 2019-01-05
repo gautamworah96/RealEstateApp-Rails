@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+    <%= bootstrap_form_for(
+      @house, url: form_url,
+      multipart: true,
+      layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8") do |form| %>
+      <% if house.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(house.errors.count, "error") %> prohibited this house from being saved:</h2>
+          <ul>
+          <% house.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form.text_field :location %>
+      <%= form.text_field :square_footage %>
+      <%= form.select :year_built, Time.zone.now.year.downto(Time.zone.now.year - 100) %>
+      <%= form.select :style, ['Single family house', 'Apartment', 'Condos'] %>
+      <%= form.number_field :list_price %>
+      <%= form.number_field :num_floors %>
+      <%= form.form_group do %>
+        <%= form.check_box :has_basement %>
+      <% end %>
+      <%= form.file_field :images, multiple: true %>
+
+      <p>
+        <% @house.images.each do |image| %>
+          <p><%= image_tag image %></p>
+          <%= link_to 'Remove Image', delete_image_attachment_house_path(@house, :image_id => image.id), method: :delete, :class => 'btn btn-danger' %>
+        <% end %>
+      </p>
+
+      <%= form.primary submit_label %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  real_estate_company: one
+  location: MyString
+  square_footage: MyString
+  year_built: MyString
+  style: MyString
+  list_price: 1
+  num_floors: 1
+  has_basement: false
+  current_house_owner: MyString
+  realtor_id: MyString
+
+two:
+  real_estate_company: two
+  location: MyString
+  square_footage: MyString
+  year_built: MyString
+  style: MyString
+  list_price: 1
+  num_floors: 1
+  has_basement: false
+  current_house_owner: MyString
+  realtor_id: MyString
+
+user1 :
+  email: test1@test.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, "12345678") %>
+  created_at: <%= Time.now %>
+
+user2 :
+  email: test2@test.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, "12345678") %>
+  created_at: <%= Time.now %>

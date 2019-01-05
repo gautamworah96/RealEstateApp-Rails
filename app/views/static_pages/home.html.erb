@@ -1,0 +1,53 @@
+<h1>Inquiries</h1>
+
+
+<% if @messages_received %>
+  <div class="pull-left">
+    <h2>Inbox</h2>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Content</th>
+      <th>Sender</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @messages_received.each do |message_received| %>
+      <tr>
+        <td><%= message_received.subject %></td>
+        <td><%= message_received.content %></td>
+        <td><%= message_received.user.name %></td>
+        <td><%= link_to 'Reply', new_message_path(:receiver_id => message_received.sender), :class => 'btn btn-primary' %></td>
+        <td><%= link_to 'Destroy', message_received, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
+      </tr>
+
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if @messages_sent %>
+  <div class="pull-left">
+    <h2>Sent</h2>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Content</th>
+      <th>Receiver</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @messages_sent.each do |message_sent| %>
+      <tr>
+        <td><%= message_sent.subject %></td>
+        <td><%= message_sent.content %></td>
+        <td><%= message_sent.receiver.name %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
